@@ -20,8 +20,74 @@
         <b-form-invalid-feedback v-else-if="!$v.form.username.length">
           Username length should be between 3-8 characters long
         </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.username.alpha">
-          Username alpha
+        <b-form-invalid-feedback v-if="!$v.form.username.alphaNum">
+          Username must be in english
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-firstname"
+        label-cols-sm="3"
+        label="First Name:"
+        label-for="firstName"
+      >
+        <b-form-input
+          id="firstName"
+          v-model="$v.form.firstName.$model"
+          type="text"
+          :state="validateState('firstName')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.firstName.required">
+          First name is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-else-if="!$v.form.firstName.length">
+          First name length should be at least 2 characters long
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.firstName.alpha">
+          First name must be in english
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-lastname"
+        label-cols-sm="3"
+        label="Last Name:"
+        label-for="lastName"
+      >
+        <b-form-input
+          id="lastName"
+          v-model="$v.form.lastName.$model"
+          type="text"
+          :state="validateState('lastName')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.lastName.required">
+          Last name is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-else-if="!$v.form.lastName.length">
+          Last name length should be at least 2 characters long
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.lastName.alpha">
+          Last name must be in english
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-email"
+        label-cols-sm="3"
+        label="Email:"
+        label-for="email"
+      >
+        <b-form-input
+          id="email"
+          v-model="$v.form.email.$model"
+          type="text"
+          :state="validateState('email')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.email.required">
+          Email is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.email.email">
+          Enter legal Email address
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -127,6 +193,7 @@ import {
   maxLength,
   alpha,
   sameAs,
+  alphaNum,
   email
 } from "vuelidate/lib/validators";
 
@@ -154,10 +221,24 @@ export default {
       username: {
         required,
         length: (u) => minLength(3)(u) && maxLength(8)(u),
-        alpha
+        alphaNum
       },
       country: {
         required
+      },
+      firstName: {
+        required,
+        length: (fn) => minLength(2)(fn),
+        alpha
+      },
+      lastName: {
+        required,
+        length: (fn) => minLength(2)(fn),
+        alpha
+      },
+      email: {
+        required,
+        email
       },
       password: {
         required,
@@ -183,15 +264,22 @@ export default {
       try {
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Register",
-          this.$root.store.server_domain + "/Register",
-
+          // this.$root.store.server_domain + "/Register",
+          "http://localhost:3000/Register",
           {
             username: this.form.username,
-            password: this.form.password
+            firstname: this.form.firstName,
+            lastname: this.form.lastName,
+            country: this.form.country,
+            password: this.form.password,
+            email: this.form.email
           }
         );
-        this.$router.push("/login");
+        // this.$router.push("/register");
         // console.log(response);
+        this.$root.store.login(this.form.username);
+        this.$root.toast("Register", "User registered successfully", "success");
+        this.$router.push("/");
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;

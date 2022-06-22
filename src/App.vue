@@ -1,6 +1,76 @@
 <template>
   <div id="app">
-    <div id="nav">
+          <!-- <a class="navbar-brand" href="#">
+        <img src="./assets/logo_main_2.png" width="150" height="50" class="d-inline-block align-top" alt="" loading="lazy">
+        Cookify
+      </a> -->
+   <nav class="navbar navbar-expand-lg navbar-light bg-light" v-if="!$root.store.username">
+      <a class="navbar-brand" href="/main">
+        <img src="./assets/logo_main_2.png" width="150" height="50" class="d-inline-block align-top" alt="" loading="lazy">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#/search">Search</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="#/register">Register</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#/login">Login</a>
+          </li>
+        </ul>
+        Welcome Guest
+      </div>
+    </nav>
+
+   <nav class="navbar navbar-expand-lg navbar-light bg-light" v-else> <!-- v-else -->
+      <a class="navbar-brand" href="#">
+        <img src="./assets/logo_main_2.png" width="150" height="50" class="d-inline-block align-top" alt="" loading="lazy">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/search">Search</a>
+          </li>
+          <li>
+            <b-nav-item-dropdown text="Personal">
+              <b-dropdown-item href="#/favorites">Favorites</b-dropdown-item>
+              <b-dropdown-item href="#/personal">My Recipes</b-dropdown-item>
+              <b-dropdown-item href="#/family">Family Recipes</b-dropdown-item>
+            </b-nav-item-dropdown>
+          </li>
+        </ul>
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item-dropdown right>
+            <!-- Using 'button-content' slot -->
+            <template #button-content>
+              <em>{{ $root.store.username }}</em>
+            </template>
+            <b-dropdown-item href="#/profile">My Profile</b-dropdown-item>
+            <b-dropdown-item @click="Logout">Logout</b-dropdown-item>
+            <!-- <b-dropdown-item>{{ $root.store.username }}: <button @click="Logout">Logout</button></b-dropdown-item> -->
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </div>
+    </nav>
+    
+    <!-- <div id="nav">
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
       {{ !$root.store.username }}
@@ -12,12 +82,14 @@
       <span v-else>
         {{ $root.store.username }}: <button @click="Logout">Logout</button>|
       </span>
-    </div>
+    </div> -->
+
     <router-view />
   </div>
 </template>
 
 <script>
+
 export default {
   name: "App",
   methods: {

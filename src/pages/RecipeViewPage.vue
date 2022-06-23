@@ -1,33 +1,49 @@
 <template>
   <div class="container">
-    <div v-if="recipe">
+    <div v-if="this.recipe">
       <div class="recipe-header mt-3 mb-4">
-        <h1>{{ recipe.title }}</h1>
-        <img :src="recipe.image" class="center" />
+        <h1 align="center">{{ recipe.title }}</h1>
+        <img :src="recipe.image" class="center" align="center"/>
+      </div>
+      <div align="center">
+        <b-row>
+          <b-col>Ready in {{ recipe.readyInMinutes }} Minutes</b-col>
+          <b-col>Likes: {{ recipe.aggregateLikes }}</b-col>
+          <b-col>Servings: {{ recipe.servings }}</b-col>
+        </b-row>
+        <br>
       </div>
       <div class="recipe-body">
-        <div class="wrapper">
+        <div class="wrapper" align="center">
           <div class="wrapped">
-            <div class="mb-3">
-              <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
-            </div>
+            <!-- <div class="mb-3">
+              <div>Ready in {{ recipe.readyInMinutes }} Minutes</div>
+              <div>Likes: {{ recipe.aggregateLikes }}</div>
+              <div>Servings: {{ recipe.servings }}</div>
+              <div v-if="recipe.vegetarian">Vegetarian </div>
+              <div v-if="recipe.vegan">Vegan </div>
+              <div v-if="recipe.glutenFree">Gluten Free </div>
+            </div> -->
             Ingredients:
-            <ul>
+            <ul align="left">
               <li
-                v-for="(r, index) in recipe.extendedIngredients"
-                :key="index + '_' + r.id"
+                v-for="(r, index) in this.recipe.ingredients" :key="index"
               >
                 {{ r.original }}
               </li>
+              
             </ul>
           </div>
-          <div class="wrapped">
+          <div class="wrapped" >
             Instructions:
-            <ol>
-              <li v-for="s in recipe._instructions" :key="s.number">
-                {{ s.step }}
+            <ol align="left">
+              <li v-for="(r, index) in this.recipe._instructions" :key="index">
+                {{ r.step }}
+
               </li>
+              <!-- <li v-for="s in recipe._instructions" :key="s.number">
+                {{ s.step }}
+              </li> -->
             </ol>
           </div>
         </div>
@@ -37,6 +53,9 @@
       {{ recipe }}
     </pre
       > -->
+    </div>
+    <div v-else>
+      <h1>This is SHIT</h1>
     </div>
   </div>
 </template>
@@ -56,13 +75,14 @@ export default {
       try {
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
-          this.$root.store.server_domain + "/recipes/info",
-          {
-            params: { id: this.$route.params.recipeId }
-          }
+          // this.$root.store.server_domain + "/recipes/info",
+          "http://localhost:3000/recipes/" + this.$route.params.recipeId ,
+          // {
+          //   params: { id: this.$route.params.recipeId }
+          // }
         );
 
-        // console.log("response.status", response.status);
+        console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
         console.log("error.response.status", error.response.status);
@@ -73,13 +93,16 @@ export default {
       let {
         analyzedInstructions,
         instructions,
-        extendedIngredients,
+        ingredients,
         aggregateLikes,
         readyInMinutes,
+        servings,
         image,
         title
-      } = response.data.recipe;
+      } = response.data;
 
+      // let _ingredients = parsedIngredients();
+      console.log("extendedIngredients " + ingredients);
       let _instructions = analyzedInstructions
         .map((fstep) => {
           fstep.steps[0].step = fstep.name + fstep.steps[0].step;
@@ -91,9 +114,10 @@ export default {
         instructions,
         _instructions,
         analyzedInstructions,
-        extendedIngredients,
+        ingredients,
         aggregateLikes,
         readyInMinutes,
+        servings,
         image,
         title
       };
@@ -102,7 +126,15 @@ export default {
     } catch (error) {
       console.log(error);
     }
-  }
+  },
+  // parsedIngredients() {
+  //   ingredients = [];
+  //   for (let i = 0; i < extendedIngredients.length; i++)
+  //   {
+  //       ingredients.push(extendedIngredients[i].amount + " " + extendedIngredients[i].unit + " of " + extendedIngredients[i].name);
+  //   }
+  //   return ingredients;
+  // }
 };
 </script>
 

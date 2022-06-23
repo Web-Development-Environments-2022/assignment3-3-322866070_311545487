@@ -6,6 +6,7 @@
     </h3>
     <b-row>
       <b-col v-for="r in recipes" :key="r.id">
+        <!-- {{ r.id }} -->
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
@@ -36,15 +37,16 @@ export default {
   methods: {
     async updateRecipes() {
       try {
-        const response = await this.axios.get(
-          this.$root.store.server_domain + "/recipes/random",
+        const response = await this.axios.post(
+          // this.$root.store.server_domain + "/recipes/randomRecipes",
           // "https://test-for-3-2.herokuapp.com/recipes/random"
+           "http://localhost:3000/recipes/randomRecipes",
         );
 
-        // console.log(response);
-        const recipes = response.data.recipes;
+        console.log("this is the LOGGGG:  " + response.data);
+        const recipesRes = response.data;
         this.recipes = [];
-        this.recipes.push(...recipes);
+        this.recipes.push(...recipesRes);
         // console.log(this.recipes);
       } catch (error) {
         console.log(error);

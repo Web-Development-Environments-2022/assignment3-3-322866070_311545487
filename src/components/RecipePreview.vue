@@ -1,21 +1,87 @@
 <template>
-  <router-link
+  <span
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
   >
-    <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
-    </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
+
+     <b-card v-if="this.image_load"
+      :header="this.recipe.title"
+      :img-src="this.recipe.image"
+      img-alt="Image"
+      img-top
+      img-fluid="fluid"
+      tag="article"
+      style="max-width: 20rem;"
+      class="mb-2"
+
+    >
+      <b-card-text id="data-content">
+        <b-col>
+          <!-- <b-row align="center">
+          <h3 class="headline">{{recipe.title}}</h3>
+          </b-row> -->
+
+          <b-row align="left" style="padding-left: 10px;">
+            <small>Ready In: {{ recipe.readyInMinutes }} Minutes </small>
+            <!-- <b-col><small>Ready In: {{ recipe.readyInMinutes }} Minutes </small></b-col> -->
+            <!-- <b-col><small>{{ recipe.aggregateLikes }} Likes </small></b-col> -->
+            <!-- <b-col><small>{{ recipe.servings }} Servings </small></b-col> -->
+          </b-row>
+          <!-- <b-row align="left" style="padding-left: 10px;">
+            <small>{{ recipe.aggregateLikes }} Likes </small>
+          </b-row> -->
+          <b-row align="left" style="padding-left: 10px;">
+            <small>{{ recipe.servings }} Servings </small>
+          </b-row>
+          <b-row align="center" style="padding-left: 10px;">
+            <!-- <small v-if="recipe.glutenFree"> Gluten Free </small> -->
+            <!-- <b-col><small v-if="recipe.glutenFree"> Gluten Free </small></b-col>
+            <b-col>
+              <small v-if="recipe.vegan"> Vegan </small>
+              <small v-else-if="recipe.vegetarian"> Vegetarian </small>
+            </b-col> -->
+            <b-col>
+              <small>Gluten Free</small>
+            </b-col>
+            <b-col>
+              <small v-if="recipe.vegan">Vegan</small>
+              <small v-else>Vegetarian</small>
+            </b-col>
+            <!-- <b-col>
+              <small>Vegetarian</small>
+            </b-col> -->
+          </b-row>
+          <b-row align="center" style="padding-left: 10px;">
+            <b-col>
+              <small v-if="recipe.glutenFree"> V </small>
+              <small v-else> X </small>
+            </b-col>
+            <b-col>
+              <small v-if="recipe.vegan"> V </small>
+              <small v-else-if="recipe.vegetarian"> V </small>
+              <small v-else> X </small>
+            </b-col>
+            <!-- <b-col>
+              <small v-if="recipe.vegetarian"> V </small>
+              <small v-else> X </small>
+            </b-col> -->
+          </b-row>
+          <!-- <b-row align="left" style="padding-left: 10px;">
+            <small v-if="recipe.vegan"> Vegan </small>
+            <small v-else-if="recipe.vegetarian"> Vegetarian </small>
+          </b-row> -->
+          <!-- <b-row align="left" style="padding-left: 10px;">
+            <small v-if="recipe.vegetarian"> It's Vegetarian! </small>
+          </b-row>                     -->
+          </b-col>
+      </b-card-text>
+      <div align="center">
+        <b-button variant="primary" :to="{ name: 'recipe', params: { recipeId: recipe.id } }" >See Recipe</b-button>
       </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
-      </ul>
-    </div>
-  </router-link>
+      <br>
+      <b-card-footer>{{ this.recipe.aggregateLikes }} Likes</b-card-footer>
+    </b-card>
+  </span>
 </template>
 
 <script>
@@ -34,31 +100,31 @@ export default {
     recipe: {
       type: Object,
       required: true
-    }
+    },
 
-    // id: {
-    //   type: Number,
-    //   required: true
-    // },
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // readyInMinutes: {
-    //   type: Number,
-    //   required: true
-    // },
-    // image: {
-    //   type: String,
-    //   required: true
-    // },
-    // aggregateLikes: {
-    //   type: Number,
-    //   required: false,
-    //   default() {
-    //     return undefined;
-    //   }
-    // }
+    id: {
+      type: Number,
+      required: true
+    },
+    title: {
+      type: String,
+      required: true
+    },
+    readyInMinutes: {
+      type: Number,
+      required: true
+    },
+    image: {
+      type: String,
+      required: true
+    },
+    aggregateLikes: {
+      type: Number,
+      required: false,
+      default() {
+        return undefined;
+      }
+    }
   }
 };
 </script>

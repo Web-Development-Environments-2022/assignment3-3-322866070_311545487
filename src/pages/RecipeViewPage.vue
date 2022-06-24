@@ -102,7 +102,7 @@ export default {
       } = response.data;
 
       // let _ingredients = parsedIngredients();
-      console.log("extendedIngredients " + ingredients);
+      // console.log("extendedIngredients " + ingredients);
       let _instructions = analyzedInstructions
         .map((fstep) => {
           fstep.steps[0].step = fstep.name + fstep.steps[0].step;

@@ -43,7 +43,7 @@ export default {
            "http://localhost:3000/recipes/randomRecipes",
         );
 
-        console.log("this is the LOGGGG:  " + response.data);
+        // console.log("this is the LOGGGG:  " + response.data);
         const recipesRes = response.data;
         this.recipes = [];
         this.recipes.push(...recipesRes);

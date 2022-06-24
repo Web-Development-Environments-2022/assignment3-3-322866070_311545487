@@ -1,119 +1,146 @@
 <template>
-  <div class="container" align="center">
-    <h1 class="title" >Search Recipes</h1>
-    <b-form @submit.prevent="onSearch" @reset.prevent="onReset">
-      <b-form-group
-          id="input-group-query"
+  <div>
+    <div  align="center">
+      <h1 class="title" >Search Recipes</h1>
+      <b-form class="container" @submit.prevent="onSearch" @reset.prevent="onReset" style="max-width: 500px;" >
+        <b-form-group
+            id="input-group-query"
+            label-cols-sm="3"
+            label="Search Query:"
+            label-for="query"
+            
+          >
+          <b-form-input
+            id="query"
+            type="text"
+            v-model="$v.form.query.$model"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+          id="input-group-amount"
           label-cols-sm="3"
-          label="Search Query:"
-          label-for="query"
+          label="Number:"
+          label-for="amount"
         >
-        <b-form-input
-          id="query"
-          type="text"
-          v-model="$v.form.query"
-        ></b-form-input>
-      </b-form-group>
+          <b-form-select
+            id="amount"
+            value=5
+            v-model.number="$v.form.amount.$model" 
+            :options="amountRecipes"
+          ></b-form-select>
+          <b-form-invalid-feedback>
+            Number of recipes is required
+          </b-form-invalid-feedback>
 
-      <b-form-group
-        id="input-group-number"
-        label-cols-sm="3"
-        label="Number:"
-        label-for="number"
-      >
-        <b-form-select
-          id="number"
-          value=5 selected
-          v-model="$v.form.number" 
-          :options="amountRecipes"
-        ></b-form-select>
-        <b-form-invalid-feedback>
-          Number of recipes is required
-        </b-form-invalid-feedback>
+        </b-form-group>
+        <b-form-group
+          id="input-group-cuisine"
+          label-cols-sm="3"
+          label="Cuisine:"
+          label-for="cuisine"
+        >
+          <b-form-select
+            id="cuisine"
+            v-model="$v.form.cuisine.$model"
+            :options="cuisines"
+          ></b-form-select>
+        </b-form-group>
 
-      </b-form-group>
-      <b-form-group
-        id="input-group-cuisine"
-        label-cols-sm="3"
-        label="Cuisine:"
-        label-for="cuisine"
-      >
-        <b-form-select
-          id="cuisine"
-          v-model="$v.form.cuisine"
-          :options="cuisines"
-        ></b-form-select>
-      </b-form-group>
+        <b-form-group
+          id="input-group-diet"
+          label-cols-sm="3"
+          label="Diet:"
+          label-for="diet"
+        >
+          <b-form-select
+            id="diet"
+            v-model="$v.form.diet.$model"
+            :options="diets"
+          ></b-form-select>
+        </b-form-group>
 
-      <b-form-group
-        id="input-group-diet"
-        label-cols-sm="3"
-        label="Diet:"
-        label-for="diet"
-      >
-        <b-form-select
-          id="diet"
-          v-model="$v.form.diet"
-          :options="diets"
-        ></b-form-select>
-      </b-form-group>
+        <b-form-group
+          id="input-group-intolerances"
+          label-cols-sm="3"
+          label="Intolerances:"
+          label-for="intolerances"
+        >
+          <b-form-select
+            id="intolerances"
+            v-model="$v.form.intolerance.$model"
+            :options="intolerances"
+          ></b-form-select>
+        </b-form-group>
 
-      <b-form-group
-        id="input-group-intolerances"
-        label-cols-sm="3"
-        label="Intolerances:"
-        label-for="intolerances"
-      >
-        <b-form-select
-          id="intolerances"
-          v-model="$v.form.intolerance"
-          :options="intolerances"
-        ></b-form-select>
-      </b-form-group>
+        <b-form-group
+          id="input-group-watched"
+          label-cols-sm="3"
+          label="Watched:"
+          label-for="watched"
+        >
+          <b-form-select
+            id="watched"
+            v-model="$v.form.watched.$model"
+            :options="watchedAns"
+          ></b-form-select>
+        </b-form-group>  
 
-      <b-form-group
-        id="input-group-watched"
-        label-cols-sm="3"
-        label="Watched:"
-        label-for="watched"
-      >
-        <b-form-select
-          id="watched"
-          v-model="$v.form.watched"
-          :options="watchedAns"
-        ></b-form-select>
-      </b-form-group>  
-
-      <b-form-group
-        id="input-group-favorite"
-        label-cols-sm="3"
-        label="Favorite:"
-        label-for="favorite"
-      >
-        <b-form-select
-          id="favorite"
-          v-model="$v.form.favorite"
-          :options="favoriteAns"
-        ></b-form-select>
-      </b-form-group>     
-      
-      <b-button type="reset" variant="danger" style="margin-right: 4px;">Reset</b-button>
-      <!-- <b-button v-if="advSearch === true" type="advance_search" variant="secondary" v-on:click="advSearch = false">Advance Search</b-button> -->
-      <b-button
-        type="submit"
-        variant="primary"
-        style="width:250px;
-              margin-left: 4px;"
-        >Search</b-button
-      >   
-    </b-form>
+        <b-form-group
+          id="input-group-favorite"
+          label-cols-sm="3"
+          label="Favorite:"
+          label-for="favorite"
+        >
+          <b-form-select
+            id="favorite"
+            v-model="$v.form.favorite.$model"
+            :options="favoriteAns"
+          ></b-form-select>
+        </b-form-group>     
         
-    <br>
-    <br>
+        <b-button type="reset" variant="danger" style="margin-right: 4px;">Reset</b-button>
+        <!-- <b-button v-if="advSearch === true" type="advance_search" variant="secondary" v-on:click="advSearch = false">Advance Search</b-button> -->
+        <b-button
+          type="submit"
+          variant="primary"
+          style="width:250px;
+                margin-left: 4px;"
+          >Search</b-button
+        >   
+      </b-form>
+          
+      <br>
+
+    </div>
+    <div v-if="recipes"  align="center">
+      <div v-if="recipes.length > 0" class="search-results" align="center" >
+        <b-container>
+          <h3>
+            Search Results:
+            <slot></slot>
+          </h3>
+          <b-col>
+            <b-row v-for="r in recipes" :key="r.id">
+              <!-- {{ r.id }} -->
+              <SearchResultPreview class="recipePreview" :recipe="r" />
+            </b-row>
+          </b-col>
+        </b-container>
+        <br>
+      </div>
+      <div v-else align="center">
+          <h3>
+            No Results
+            <slot></slot>
+          </h3>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+  import SearchResultPreview from "../components/SearchResultPreview";
   import cuisines from "../assets/cuisines";
   import diets from "../assets/diets";
   import intolerances from "../assets/intolerances";
@@ -125,7 +152,7 @@
     sameAs,
     email
   } from "vuelidate/lib/validators";
-  const numReturns = [5, 10, 15];
+  const numReturns = ["5", "10", "15"];
   const binaryAns = ["Yes", "No"];
   export default {
   name: "Search",
@@ -136,7 +163,7 @@
         cuisine: null,
         diet: null,
         intolerance: null,
-        number: "5",
+        amount: null,
         watched: null,
         favorite: null,
         submitError: undefined
@@ -145,32 +172,41 @@
       diets: [{ value: null, text: "", disabled: true }],
       intolerances: [{ value: null, text: "", disabled: true }],
       amountRecipes: [{ value: null, text: "", disabled: true }],
-      watchedAns: [{ value: null, Number, disabled: true }],
+      watchedAns: [{ value: null, text: "", disabled: true }],
       favoriteAns: [{ value: null, text: "", disabled: true }],
       errors: [],
+      recipes: null,
       validated: false
+      // isFound: undefined
     };
   },
   validations: {
     form: {
-      number: {
+      query: {
+        alpha
+      },
+      cuisine: {
+
+      },
+      diet: {
+
+      },
+      intolerance: {
+
+      },
+      amount: {
         required
+      },
+      watched: {
+
+      },
+      favorite: {
+
       }
-      //   length: (u) => minLength(3)(u) && maxLength(8)(u),
-      //   alpha
-      // },
-      // country: {
-      //   required
-      // },
-      // password: {
-      //   required,
-      //   length: (p) => minLength(5)(p) && maxLength(10)(p)
-      // },
-      // confirmedPassword: {
-      //   required,
-      //   sameAsPassword: sameAs("password")
-      // }
     }
+  },
+  components: {
+    SearchResultPreview
   },
   mounted() {
     // console.log("mounted");
@@ -200,14 +236,23 @@
             cuisine: this.form.cuisine,
             diet: this.form.diet,
             intolerance: this.form.intolerance,
-            number: this.form.number,
+            amount: parseInt(this.form.amount),
             watched: this.form.watched,
             favorite: this.form.favorite
           }
         );
-        this.$router.push("/recipesPreview");
-        // console.log(response);
+        console.log("query: " + this.form.query);
+        console.log("cuisine: " + this.form.cuisine);
+        console.log("amount: " + this.form.amount);
+        // this.$router.push("/RecipePreviewList");
+        console.log(response);
+        // isFound = true;
+        const recipesRes = response.data;
+        this.recipes = [];
+        this.recipes.push(...recipesRes);
+        console.log("this.recipes " + this.recipes);
       } catch (err) {
+        // isFound = false;
         console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
@@ -227,7 +272,7 @@
         cuisine: null,
         diet: null,
         intolerance: null,
-        number: 5,
+        amount: null,
         watched: null,
         favorite: null
       };
@@ -241,8 +286,12 @@
 </script>
 
 <style lang="scss" scoped>
-.container {
-  max-width: 500px;
-}
+// .container {
+  // max-width: max-content;
+  // max-width: 500px;
+// }
 
+// .search-results{
+  // max-width: 10000px;
+// }
 </style>

@@ -4,47 +4,50 @@
     class="recipe-preview"
   >
 
-     <b-card v-if="this.image_load"
-      :header="this.recipe.title"
+    <b-card v-if="this.image_load"
       :img-src="this.recipe.image"
-      img-alt="Image"
-      img-top
+      img-alt="Card image"
+      img-left
       img-fluid="fluid"
       tag="article"
-      style="max-width: 20rem;"
+      img-height="325"
+      img-width="380"
+      style="background-size: cover ; position: relative;"
       class="mb-2"
-
     >
-      <b-card-text id="data-content">
-        <b-col>
-          <b-row align="left" style="padding-left: 10px;">
-            <small>Ready In: {{ recipe.readyInMinutes }} Minutes </small>
-          </b-row>
-          <b-row align="left" style="padding-left: 10px;">
-            <small>{{ recipe.servings }} Servings </small>
-          </b-row>
-          <b-row align="center" style="padding-left: 10px;">
-            <b-col>
-              <small>Gluten Free</small>
-            </b-col>
-            <b-col>
-              <small v-if="recipe.vegan">Vegan</small>
-              <small v-else>Vegetarian</small>
-            </b-col>
-          </b-row>
-          <b-row align="center" style="padding-left: 10px;">
-            <b-col>
-              <small v-if="recipe.glutenFree"> V </small>
-              <small v-else> X </small>
-            </b-col>
-            <b-col>
-              <small v-if="recipe.vegan"> V </small>
-              <small v-else-if="recipe.vegetarian"> V </small>
-              <small v-else> X </small>
-            </b-col>
-          </b-row>
-        </b-col>
+      <b-card-header align="center"><h5>{{ this.recipe.title }} </h5></b-card-header>
+      <br>
+      <b-card-text>
+        <b-row align="center" style="padding-left: 10px; ">
+          <b-col>
+            <small>Ready In {{ this.recipe.readyInMinutes }} Minutes </small>
+          </b-col>
+          <b-col>
+            <small>{{ this.recipe.servings }} Servings</small>
+          </b-col>
+        </b-row>  
+        <b-row align="center" style="padding-left: 10px; ">
+          <b-col>
+            <small>Gluten Free</small>
+          </b-col>
+          <b-col>
+            <small v-if="this.recipe.vegan">Vegan</small>
+            <small v-else>Vegetarian</small>
+          </b-col>
+        </b-row>
+        <b-row align="center" style="padding-left: 10px;" >
+          <b-col>
+            <small v-if="this.recipe.glutenFree"> V </small>
+            <small v-else> X </small>
+          </b-col>
+          <b-col >
+            <small v-if="this.recipe.vegan"> V </small>
+            <small v-else-if="this.recipe.vegetarian"> V </small>
+            <small v-else> X </small>
+          </b-col>
+        </b-row>
       </b-card-text>
+     
       <div align="center">
         <b-button variant="primary" :to="{ name: 'recipe', params: { recipeId: recipe.id } }" >See Recipe</b-button>
       </div>

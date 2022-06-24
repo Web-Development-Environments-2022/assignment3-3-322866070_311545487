@@ -4,17 +4,19 @@
     class="recipe-preview"
   >
 
-     <b-card v-if="this.image_load"
-      :header="this.recipe.title"
-      :img-src="this.recipe.image"
-      img-alt="Image"
-      img-top
-      img-fluid="fluid"
-      tag="article"
-      style="max-width: 20rem;"
-      class="mb-2"
-
-    >
+    <b-card v-if="this.image_load">
+      <b-card-header align="center" :header="this.recipe.title"></b-card-header>
+      <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }">
+        <b-card-img 
+          :src="this.recipe.image"
+          img-alt="Image"
+          img-top
+          img-fluid="fluid"
+          tag="article"
+          style="max-width: 20rem;"
+          class="mb-2"
+        /> 
+      </router-link>
       <b-card-text id="data-content">
         <b-col>
           <b-row align="left" style="padding-left: 10px;">
@@ -49,7 +51,7 @@
         <b-button variant="primary" :to="{ name: 'recipe', params: { recipeId: recipe.id } }" >See Recipe</b-button>
       </div>
       <br>
-      <b-card-footer>{{ this.recipe.aggregateLikes }} Likes</b-card-footer>
+      <b-card-footer align="center">{{ this.recipe.aggregateLikes }} Likes</b-card-footer>
     </b-card>
   </span>
 </template>

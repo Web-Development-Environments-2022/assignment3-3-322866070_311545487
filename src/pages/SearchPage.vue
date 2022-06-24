@@ -130,9 +130,25 @@
       <div v-if="recipes.length > 0" class="search-results" align="center" >
         <b-container>
           <h3>
-            Search Results:
-            <slot></slot>
+            Search Results:          
           </h3>
+            <b-form-group
+              id="input-group-sort"
+              label-cols-sm="3"
+              label="Sort By:"
+              label-for="sortBy"
+              style="max-width: 300px;"
+            >
+              <b-form-select
+                id="sortBy"
+                v-model="$v.form.sortBy.$model"
+                :state="validateState('sortBy')"
+                v-on:change="sortHandler"
+              >
+                <option value="time">Preparation time</option>
+                <option value="like">Likes</option>
+              </b-form-select>
+            </b-form-group>
           <b-col>
             <b-row v-for="r in recipes" :key="r.id">
               <!-- {{ r.id }} -->
@@ -165,8 +181,9 @@
     sameAs,
     email
   } from "vuelidate/lib/validators";
-  const numReturns = ["5", "10", "15"];
-  const binaryAns = ["Yes", "No"];
+  // const numReturns = ["5", "10", "15"];
+  // const binaryAns = ["Yes", "No"];
+
   export default {
   name: "Search",
   data() {
@@ -179,18 +196,18 @@
         amount: "5",
         watched: null,
         favorite: null,
+        sortBy: null,
         submitError: undefined
       },
       cuisines: [{ value: null, text: "", disabled: true }],
       diets: [{ value: null, text: "", disabled: true }],
       intolerances: [{ value: null, text: "", disabled: true }],
-      amountRecipes: [{ value: null, text: "", disabled: true }],
-      watchedAns: [{ value: null, text: "", disabled: true }],
-      favoriteAns: [{ value: null, text: "", disabled: true }],
+      // amountRecipes: [{ value: null, text: "", disabled: true }],
+      // watchedAns: [{ value: null, text: "", disabled: true }],
+      // favoriteAns: [{ value: null, text: "", disabled: true }],
       errors: [],
       recipes: null,
       validated: false
-      // isFound: undefined
     };
   },
   validations: {
@@ -215,6 +232,9 @@
       },
       favorite: {
 
+      },
+      sortBy: {
+
       }
     }
   },
@@ -227,9 +247,9 @@
     this.cuisines.push(...cuisines);
     this.diets.push(...diets);
     this.intolerances.push(...intolerances);
-    this.amountRecipes.push(...numReturns);
-    this.watchedAns.push(...binaryAns);
-    this.favoriteAns.push(...binaryAns);
+    // this.amountRecipes.push(...numReturns);
+    // this.watchedAns.push(...binaryAns);
+    // this.favoriteAns.push(...binaryAns);
     // console.log($v);
   },
   methods: {
@@ -239,6 +259,7 @@
     },
     async Search() {
       try {
+        // let resExist = false;
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Register",
           // this.$root.store.server_domain + "/searchRecipes",
@@ -263,8 +284,15 @@
         console.log(response);
         // isFound = true;
         const recipesRes = response.data;
+        // if(this.recipes){
+        //   resExist = true;
+        // }
         this.recipes = [];
         this.recipes.push(...recipesRes);
+        // console.log("this.form.sortBy: " + this.form.sortBy);
+        if(this.form.sortBy){
+          this.sortHandler(this.form.sortBy);
+        }
         console.log("this.recipes " + this.recipes);
       } catch (err) {
         // isFound = false;
@@ -289,13 +317,25 @@
         intolerance: null,
         amount: "5",
         watched: null,
-        favorite: null
+        favorite: null,
+        sortBy: null
       };
       this.$nextTick(() => {
         this.$v.$reset();
       });
     },
-
+    sortHandler(event) {
+      if (event === "time") {
+        this.recipes.sort((a, b) => {
+          return a.readyInMinutes < b.readyInMinutes ? -1 : 1;
+        });
+      }
+      if (event === "like") {
+        this.recipes.sort((a, b) => {
+          return a.aggregateLikes > b.aggregateLikes ? -1 : 1;
+        });
+      }
+    }
   }
 };
 </script>

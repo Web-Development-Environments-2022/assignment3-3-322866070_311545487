@@ -14,6 +14,7 @@
             id="query"
             type="text"
             v-model="$v.form.query.$model"
+            :state="validateState('query')"
           ></b-form-input>
         </b-form-group>
 
@@ -25,10 +26,13 @@
         >
           <b-form-select
             id="amount"
-            value=5
-            v-model.number="$v.form.amount.$model" 
-            :options="amountRecipes"
-          ></b-form-select>
+            v-model.number="$v.form.amount.$model"
+            :state="validateState('amount')"
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+          </b-form-select>
           <b-form-invalid-feedback>
             Number of recipes is required
           </b-form-invalid-feedback>
@@ -44,6 +48,7 @@
             id="cuisine"
             v-model="$v.form.cuisine.$model"
             :options="cuisines"
+            :state="validateState('cuisine')"
           ></b-form-select>
         </b-form-group>
 
@@ -57,6 +62,7 @@
             id="diet"
             v-model="$v.form.diet.$model"
             :options="diets"
+            :state="validateState('diet')"
           ></b-form-select>
         </b-form-group>
 
@@ -70,6 +76,7 @@
             id="intolerances"
             v-model="$v.form.intolerance.$model"
             :options="intolerances"
+            :state="validateState('intolerance')"
           ></b-form-select>
         </b-form-group>
 
@@ -82,8 +89,11 @@
           <b-form-select
             id="watched"
             v-model="$v.form.watched.$model"
-            :options="watchedAns"
-          ></b-form-select>
+            :state="validateState('watched')"
+          >
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </b-form-select>
         </b-form-group>  
 
         <b-form-group
@@ -95,8 +105,11 @@
           <b-form-select
             id="favorite"
             v-model="$v.form.favorite.$model"
-            :options="favoriteAns"
-          ></b-form-select>
+            :state="validateState('favorite')"
+          >
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </b-form-select>
         </b-form-group>     
         
         <b-button type="reset" variant="danger" style="margin-right: 4px;">Reset</b-button>
@@ -163,7 +176,7 @@
         cuisine: null,
         diet: null,
         intolerance: null,
-        amount: null,
+        amount: "5",
         watched: null,
         favorite: null,
         submitError: undefined
@@ -237,13 +250,15 @@
             diet: this.form.diet,
             intolerance: this.form.intolerance,
             amount: parseInt(this.form.amount),
-            watched: this.form.watched,
-            favorite: this.form.favorite
+            watched: parseInt(this.form.watched),
+            favorite: parseInt(this.form.favorite)
           }
         );
         console.log("query: " + this.form.query);
         console.log("cuisine: " + this.form.cuisine);
         console.log("amount: " + this.form.amount);
+        console.log("watched: " + this.form.watched);
+        console.log("favorite: " + this.form.favorite);
         // this.$router.push("/RecipePreviewList");
         console.log(response);
         // isFound = true;
@@ -272,7 +287,7 @@
         cuisine: null,
         diet: null,
         intolerance: null,
-        amount: null,
+        amount: "5",
         watched: null,
         favorite: null
       };

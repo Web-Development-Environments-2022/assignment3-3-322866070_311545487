@@ -10,6 +10,10 @@
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
+    <br>
+    <div v-if="this.randomRecipesList">
+      <button @click="refresh()">Refresh</button>
+    </div>
   </b-container>
 </template>
 
@@ -28,11 +32,13 @@ export default {
   },
   data() {
     return {
-      recipes: []
+      recipes: [],
+      randomRecipesList:false
     };
   },
   mounted() {
     this.updateRecipes();
+    if(this.title=="Random Recipes"){this.randomRecipesList=true}
   },
   methods: {
     async updateRecipes() {
@@ -51,6 +57,9 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    async refresh(){
+      this.updateRecipes();
     }
   }
 };

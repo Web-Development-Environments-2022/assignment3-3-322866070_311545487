@@ -30,6 +30,9 @@
             <a class="nav-link" href="#/about">About</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="#/createrecipe">Create Recipe</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#/familyrecipes">Family Recipes</a>
           </li>
         </ul>
@@ -57,8 +60,14 @@
             <b-nav-item-dropdown text="Personal">
               <b-dropdown-item href="#/favorites">Favorites</b-dropdown-item>
               <b-dropdown-item href="#/personal">My Recipes</b-dropdown-item>
-              <b-dropdown-item href="#/family">Family Recipes</b-dropdown-item>
+              <b-dropdown-item href="#/familyrecipes">Family Recipes</b-dropdown-item>
             </b-nav-item-dropdown>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/createrecipe">Create Recipe</a>
           </li>
         </ul>
         <b-navbar-nav class="ml-auto">
@@ -79,6 +88,7 @@
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
       <router-link :to="{ name: 'about' }">About</router-link>|
+      <router-link :to="{ name: 'createrecipe' }">Create Recipe</router-link>|
       {{ !$root.store.username }}
       <span v-if="!$root.store.username">
         Guest:
@@ -111,7 +121,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/scss/form-style.scss";
 
 #app {

@@ -11,6 +11,9 @@ const router = new VueRouter({
 });
 
 import Vuelidate from "vuelidate";
+
+
+import {BootstrapVue,IconsPlugin} from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import {
@@ -38,7 +41,8 @@ import {
   LayoutPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
-
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 axios.interceptors.request.use(
   function(config) {
     // Do something before request is sent

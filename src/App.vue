@@ -17,15 +17,20 @@
           <li class="nav-item active">
             <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" href="#/search">Search</a>
-          </li> -->
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="#/register">Register</a>
           </li>
-
           <li class="nav-item">
             <a class="nav-link" href="#/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/familyrecipes">Family Recipes</a>
           </li>
         </ul>
         Welcome Guest
@@ -73,6 +78,7 @@
     <!-- <div id="nav">
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
+      <router-link :to="{ name: 'about' }">About</router-link>|
       {{ !$root.store.username }}
       <span v-if="!$root.store.username">
         Guest:

@@ -77,6 +77,8 @@
               <em>{{ $root.store.username }}</em>
             </template>
             <b-dropdown-item href="#/profile">My Profile</b-dropdown-item>
+            <b-dropdown-item href="#/myrecipes">My Recipes</b-dropdown-item>
+            <b-dropdown-item href="#/familyrecipes">Family Recipes</b-dropdown-item>
             <b-dropdown-item @click="Logout">Logout</b-dropdown-item>
             <!-- <b-dropdown-item>{{ $root.store.username }}: <button @click="Logout">Logout</button></b-dropdown-item> -->
           </b-nav-item-dropdown>

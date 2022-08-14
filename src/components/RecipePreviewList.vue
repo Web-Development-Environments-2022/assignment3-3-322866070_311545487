@@ -2,7 +2,11 @@
   <b-container>
     <h3>
       {{ title }}:
-      <slot></slot>
+      <slot>
+        <div v-if="this.randomRecipesList">
+          <b-button @click="refresh()">Refresh</b-button>
+        </div>
+      </slot>
     </h3>
     <b-row>
       <b-col v-for="r in recipes" :key="r.id">
@@ -11,9 +15,7 @@
       </b-col>
     </b-row>
     <br>
-    <div v-if="this.randomRecipesList">
-      <button @click="refresh()">Refresh</button>
-    </div>
+    
   </b-container>
 </template>
 
@@ -37,8 +39,14 @@ export default {
     };
   },
   mounted() {
-    this.updateRecipes();
-    if(this.title=="Random Recipes"){this.randomRecipesList=true}
+    if(this.title==="Random Recipes"){
+      this.randomRecipesList=true
+      this.updateRecipes();
+    }
+    else if (this.title==="Favorite Recipes"){
+      this.favoriteRecipes();
+    }
+
   },
   methods: {
     async updateRecipes() {
@@ -54,6 +62,23 @@ export default {
         this.recipes = [];
         this.recipes.push(...recipesRes);
         // console.log(this.recipes);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async favoriteRecipes() {
+      try {
+        const response = await this.axios.get(
+          // this.$root.store.server_domain + "/recipes/randomRecipes",
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+           "http://localhost:3000/users/favorites"
+        );
+
+        console.log("this is the LOGGGG:  " + response.data);
+        const recipesRes = response.data;
+        this.recipes = [];
+        this.recipes.push(...recipesRes);
+        console.log("this.recipes " + this.recipes);
       } catch (error) {
         console.log(error);
       }

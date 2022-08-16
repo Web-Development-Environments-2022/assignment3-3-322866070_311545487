@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <div align="center" class="mt-3 mb-4">
-    <h1 align="center">{{ recipe.title }}</h1>
+    <h1 align="center">{{ this.recipe.title }}</h1>
     <img :src="recipe.picture" class="center" />
     </div>
     <div align="center">
     <strong><b-row>
-        <b-col>Ready in {{ recipe.time_to_prepare }} Minutes</b-col>
-        <b-col>Servings: {{ recipe.number_of_servings }}</b-col>
-        <b-col>From: {{ recipe.creator }}</b-col>
+        <b-col>Ready in {{ this.recipe.time_to_prepare }} Minutes</b-col>
+        <b-col>Servings: {{ this.recipe.number_of_servings }}</b-col>
+        <b-col>From: {{ this.recipe.creator }}</b-col>
     </b-row></strong>
     <br>
     </div>
@@ -17,7 +17,7 @@
         <div class="wrapped">
         <h4>Ingredients:</h4>
         <ul align="left">
-            <li v-for="(r, index) in recipe.ingridients" :key="index">
+            <li v-for="(r, index) in this.recipe.ingridients" :key="index">
             {{ r.original }}
             </li>
         </ul>
@@ -25,7 +25,7 @@
         <div class="wrapped" >
         <h4>Instructions:</h4>
         <ol align="left">
-            <li v-for="(r, index) in recipe.instructions" :key="index">
+            <li v-for="(r, index) in this.recipe.instructions" :key="index">
             {{ r.step }}
 
             </li>

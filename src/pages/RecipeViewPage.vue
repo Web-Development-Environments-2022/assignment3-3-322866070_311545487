@@ -16,22 +16,11 @@
       <div class="recipe-body">
         <div class="wrapper" align="center">
           <div class="wrapped">
-            <!-- <div class="mb-3">
-              <div>Ready in {{ recipe.readyInMinutes }} Minutes</div>
-              <div>Likes: {{ recipe.aggregateLikes }}</div>
-              <div>Servings: {{ recipe.servings }}</div>
-              <div v-if="recipe.vegetarian">Vegetarian </div>
-              <div v-if="recipe.vegan">Vegan </div>
-              <div v-if="recipe.glutenFree">Gluten Free </div>
-            </div> -->
             <h4>Ingredients:</h4>
             <ul align="left">
-              <li
-                v-for="(r, index) in this.recipe.ingredients" :key="index"
-              >
+              <li v-for="(r, index) in this.recipe.ingredients" :key="index">
                 {{ r.original }}
               </li>
-              
             </ul>
           </div>
           <div class="wrapped" >
@@ -54,9 +43,6 @@
     </pre
       > -->
     </div>
-    <div v-else>
-      <h1>This is SHIT</h1>
-    </div>
   </div>
 </template>
 
@@ -68,6 +54,7 @@ export default {
     };
   },
   async created() {
+
     try {
       let response;
       // response = this.$route.params.response;

@@ -279,7 +279,7 @@ export default {
         // console.log(response);
         this.$root.store.login(this.form.username);
         this.$root.toast("Register", "User registered successfully", "success");
-        this.$router.push("/");
+        this.$router.push("/login");
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;

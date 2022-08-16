@@ -4,7 +4,7 @@
     class="recipe-preview"
   >
 
-    <b-card v-if="this.image_load">
+    <b-card v-if="this.image_load" style="max-width: 300px;">
       <b-card-header align="center" :header="this.recipe.title"></b-card-header>
       <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }">
         <b-card-img 
@@ -36,13 +36,29 @@
           </b-row>
           <b-row align="center" style="padding-left: 10px;">
             <b-col>
-              <small v-if="recipe.glutenFree"> V </small>
-              <small v-else> X </small>
+              <small v-if="recipe.glutenFree"> &#10004; </small>
+              <small v-else> &#10008; </small>
             </b-col>
             <b-col>
-              <small v-if="recipe.vegan"> V </small>
-              <small v-else-if="recipe.vegetarian"> V </small>
-              <small v-else> X </small>
+              <small v-if="recipe.vegan"> &#10004; </small>
+              <small v-else-if="recipe.vegetarian"> &#10004; </small>
+              <small v-else> &#10008; </small>
+            </b-col>
+          </b-row>
+          <b-row align="center" style="padding-left: 10px;">
+            <b-col><small>Watched</small></b-col>
+            <b-col><small>Favorite</small></b-col>
+          </b-row>
+          <b-row align="center" style="padding-left: 10px;">
+            <b-col>
+              <small v-if="!$root.store.username"> &#10008; </small>
+              <!-- <small v-else-if="wasWatched"> &#10004; </small> -->
+              <small v-else> &#10008; </small>
+            </b-col>
+            <b-col>
+              <small v-if="!$root.store.username"> &#10008; </small>
+              <!-- <small v-else-if="isFavorite"> &#10004; </small> -->
+              <small v-else> &#10008; </small>
             </b-col>
           </b-row>
         </b-col>

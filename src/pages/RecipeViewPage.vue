@@ -6,11 +6,11 @@
         <img :src="recipe.image" class="center" align="center"/>
       </div>
       <div align="center">
-        <b-row>
+        <strong><b-row>
           <b-col>Ready in {{ recipe.readyInMinutes }} Minutes</b-col>
           <b-col>Likes: {{ recipe.aggregateLikes }}</b-col>
           <b-col>Servings: {{ recipe.servings }}</b-col>
-        </b-row>
+        </b-row></strong>
         <br>
       </div>
       <div class="recipe-body">
@@ -24,7 +24,7 @@
               <div v-if="recipe.vegan">Vegan </div>
               <div v-if="recipe.glutenFree">Gluten Free </div>
             </div> -->
-            Ingredients:
+            <h4>Ingredients:</h4>
             <ul align="left">
               <li
                 v-for="(r, index) in this.recipe.ingredients" :key="index"
@@ -35,7 +35,7 @@
             </ul>
           </div>
           <div class="wrapped" >
-            Instructions:
+            <h4>Instructions:</h4>
             <ol align="left">
               <li v-for="(r, index) in this.recipe._instructions" :key="index">
                 {{ r.step }}

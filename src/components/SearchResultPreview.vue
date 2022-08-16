@@ -40,15 +40,31 @@
         </b-row>
         <b-row align="center" style="padding-left: 10px;" >
           <b-col>
-            <small v-if="this.recipe.glutenFree"> V </small>
-            <small v-else> X </small>
+            <small v-if="this.recipe.glutenFree"> &#10004; </small>
+            <small v-else> &#10008; </small>
           </b-col>
           <b-col >
-            <small v-if="this.recipe.vegan"> V </small>
-            <small v-else-if="this.recipe.vegetarian"> V </small>
-            <small v-else> X </small>
+            <small v-if="this.recipe.vegan"> &#10004; </small>
+            <small v-else-if="this.recipe.vegetarian"> &#10004; </small>
+            <small v-else> &#10008; </small>
           </b-col>
         </b-row>
+        <b-row align="center" style="padding-left: 10px;">
+            <b-col><small>Watched</small></b-col>
+            <b-col><small>Favorite</small></b-col>
+          </b-row>
+          <b-row align="center" style="padding-left: 10px;">
+            <b-col>
+              <small v-if="!$root.store.username"> &#10008; </small>
+              <!-- <small v-else-if="wasWatched"> &#10004; </small> -->
+              <small v-else> &#10008; </small>
+            </b-col>
+            <b-col>
+              <small v-if="!$root.store.username"> &#10008; </small>
+              <!-- <small v-else-if="isFavorite"> &#10004; </small> -->
+              <small v-else> &#10008; </small>
+            </b-col>
+          </b-row>
       </b-card-text>
      
       <div align="center">

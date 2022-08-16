@@ -29,12 +29,12 @@
           <li class="nav-item">
             <a class="nav-link" href="#/about">About</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="#/createrecipe">Create Recipe</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#/familyrecipes">Family Recipes</a>
-          </li>
+          </li> -->
         </ul>
         Welcome Guest
       </div>
@@ -59,24 +59,12 @@
           <li>
             <b-nav-item-dropdown text="Personal">
               <b-dropdown-item href="#/favorites">Favorites</b-dropdown-item>
-              <b-dropdown-item href="#/personal">My Recipes</b-dropdown-item>
+              <b-dropdown-item href="#/myrecipes">My Recipes</b-dropdown-item>
               <b-dropdown-item href="#/familyrecipes">Family Recipes</b-dropdown-item>
             </b-nav-item-dropdown>
           </li>
-          <li class="nav-item">
-            <!-- <a class="nav-link" href="#/about">About</a> -->
-            <a class="nav-link" v-b-modal.modal-1 >About</a>
-            <b-modal id="modal-1" size="lg" title="Welcome to Cookify!" ok-only>
-              <p class="my-4" align="center">The website was made by Yonatan Abeksis (311545487) and Shahar Cohen (322866070)</p>
-              <p class="my-4" align="center">
-                <b-link href="https://github.com/Web-Development-Environments-2022/assignment2-311545487_322866070" class="card-link">PacMan (Assignment 2)</b-link>
-                <b-link href="https://github.com/Web-Development-Environments-2022/assignment3_2-322866070_311545487" class="card-link">Backend (Assignment 3_2)</b-link>
-              </p>
-            </b-modal>
-          </li>
 
-          <li class="nav-item">
-            <!-- <a class="nav-link" href="#/createrecipe">Create Recipe</a> -->
+          <!-- <li class="nav-item">
             <a class="nav-link" v-b-modal.modal-create-recipe>Create Recipe</a>
             <b-modal id="modal-create-recipe" size="lg" title="Create Recipe" hide-footer>
               <b-form-group label="Recipe Name:" label-for="name">
@@ -114,6 +102,17 @@
               </b-row>
               <b-row><b-col align="center"><b-button @click="create">Create</b-button></b-col></b-row>
               
+            </b-modal>
+          </li> -->
+          <li class="nav-item">
+            <!-- <a class="nav-link" href="#/about">About</a> -->
+            <a class="nav-link" v-b-modal.modal-1 >About</a>
+            <b-modal id="modal-1" size="lg" title="Welcome to Cookify!" ok-only>
+              <p class="my-4" align="center">The website was made by Yonatan Abeksis (311545487) and Shahar Cohen (322866070)</p>
+              <p class="my-4" align="center">
+                <b-link href="https://github.com/Web-Development-Environments-2022/assignment2-311545487_322866070" class="card-link">PacMan (Assignment 2)</b-link>
+                <b-link href="https://github.com/Web-Development-Environments-2022/assignment3_2-322866070_311545487" class="card-link">Backend (Assignment 3_2)</b-link>
+              </p>
             </b-modal>
           </li>
         </ul>

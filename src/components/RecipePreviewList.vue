@@ -8,12 +8,12 @@
         </div>
       </slot>
     </h3>
-    <b-row>
-      <b-col v-for="r in recipes" :key="r.id">
+    <b-col>
+      <b-row v-for="r in recipes" :key="r.id">
         <!-- {{ r.id }} -->
         <RecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
-    </b-row>
+      </b-row>
+    </b-col>
     <br>
     
   </b-container>
@@ -46,6 +46,9 @@ export default {
     else if (this.title==="Favorite Recipes"){
       this.favoriteRecipes();
     }
+    else if (this.title==="Last Viewed Recipes"){
+      this.lastWatched();
+    }
 
   },
   methods: {
@@ -72,6 +75,23 @@ export default {
           // this.$root.store.server_domain + "/recipes/randomRecipes",
           // "https://test-for-3-2.herokuapp.com/recipes/random"
            "http://localhost:3000/users/favorites"
+        );
+
+        console.log("this is the LOGGGG:  " + response.data);
+        const recipesRes = response.data;
+        this.recipes = [];
+        this.recipes.push(...recipesRes);
+        console.log("this.recipes " + this.recipes);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async lastWatched(){
+      try {
+        const response = await this.axios.get(
+          // this.$root.store.server_domain + "/recipes/randomRecipes",
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+           "http://localhost:3000/users/watched3"
         );
 
         console.log("this is the LOGGGG:  " + response.data);

@@ -261,10 +261,8 @@
       try {
         // let resExist = false;
         const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Register",
-          // this.$root.store.server_domain + "/searchRecipes",
-          "http://localhost:3000/recipes/searchRecipes",
-
+          "http://localhost:3000/recipes/searchRecipes",//remote:comment this
+          "https://cookify.cs.bgu.ac.il/recipes/searchRecipes",//local:comment this
           {
             query: this.form.query,
             cuisine: this.form.cuisine,

@@ -60,10 +60,8 @@ export default {
       // response = this.$route.params.response;
       try {
         response = await this.axios.get(
-          // "https://test-for-3-2.herokuapp.com/recipes/info",
-          // this.$root.store.server_domain + "/recipes/info",
           //"http://localhost:443/recipes/" + this.$route.params.recipeId ,//remote:comment this
-          "https://cookify.cs.bgu.ac.il/login"+this.$route.params.recipeId,//local:comment this
+          "https://cookify.cs.bgu.ac.il/recipes/"+this.$route.params.recipeId,//local:comment this
           // {
           //   params: { id: this.$route.params.recipeId }
           // }

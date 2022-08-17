@@ -1,7 +1,6 @@
 <template>
-  <div align="center">
-    <!-- <ol>
-
+  <div>
+    <ol>
       <li v-for="(recipe,index) in this.recipes" :key="index">
         <h1>{{recipe.name}}</h1>
         <h2>{{recipe.title}}</h2>
@@ -72,13 +71,11 @@
 export default {
   name: "About",
   data(){
-    return{
-      recipes:[],
-      createNewClicked: false
-    }
+    return{recipes:[]}
   },
   async created(){
-    const response=await this.axios.get("http://localhost:3000/users/personal");
+//    const response=await this.axios.get("http://localhost:3000/users/personal");  //remote:comment this
+    const response=await this.axios.get("https://cookify.cs.bgu.ac.il/users/personal");//local:comment this
     this.recipes=response.data;
     updatePhotos();
     setTimeout(updatePhotos,5000);
@@ -87,7 +84,6 @@ export default {
     alert(this.document);
     for(recipe in this.recipes){
       alert(document.getElementById('hello').outerHTML);
-
     }
   },
       async create(event){
@@ -97,7 +93,8 @@ export default {
         if(this.vegeterian){vegeterianInt=1;}
         if(this.glutenFree){glutenFreeInt=1;}
         const response = await this.axios.post(
-          "http://localhost:3000/users/personal",
+//          "http://localhost:3000/users/personal",//remote:comment this
+          "https://cookify.cs.bgu.ac.il/users/personal",//local:comment this
           {
             picture:this.picture,
             name:this.name,

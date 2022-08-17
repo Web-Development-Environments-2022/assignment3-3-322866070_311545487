@@ -21,6 +21,7 @@
               <li v-for="(r, index) in this.recipe.ingredients" :key="index">
                 {{ r.original }}
               </li>
+              
             </ul>
           </div>
           <div class="wrapped" >
@@ -54,16 +55,15 @@ export default {
     };
   },
   async created() {
-
     try {
       let response;
       // response = this.$route.params.response;
-
       try {
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
           // this.$root.store.server_domain + "/recipes/info",
-          "http://localhost:3000/recipes/" + this.$route.params.recipeId ,
+          //"http://localhost:443/recipes/" + this.$route.params.recipeId ,//remote:comment this
+          "https://cookify.cs.bgu.ac.il/login"+this.$route.params.recipeId,//local:comment this
           // {
           //   params: { id: this.$route.params.recipeId }
           // }

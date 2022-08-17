@@ -261,7 +261,7 @@
       try {
         // let resExist = false;
         const response = await this.axios.post(
-          "http://localhost:3000/recipes/searchRecipes",//remote:comment this
+          //"http://localhost:3000/recipes/searchRecipes",//remote:comment this
           "https://cookify.cs.bgu.ac.il/recipes/searchRecipes",//local:comment this
           {
             query: this.form.query,

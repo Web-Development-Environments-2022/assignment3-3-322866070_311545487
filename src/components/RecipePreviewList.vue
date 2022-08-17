@@ -49,22 +49,17 @@ export default {
     else if (this.title==="Last Viewed Recipes"){
       this.lastWatched();
     }
-
   },
   methods: {
     async updateRecipes() {
       try {
         const response = await this.axios.post(
-          // this.$root.store.server_domain + "/recipes/randomRecipes",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
-           "http://localhost:3000/recipes/randomRecipes",
+           //"http://localhost:3000/recipes/randomRecipes",//remote:comment this
+           "https://cookify.cs.bgu.ac.il/recipes/randomRecipes",//local:comment this
         );
-
-        // console.log("this is the LOGGGG:  " + response.data);
         const recipesRes = response.data;
         this.recipes = [];
         this.recipes.push(...recipesRes);
-        // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
@@ -72,26 +67,8 @@ export default {
     async favoriteRecipes() {
       try {
         const response = await this.axios.get(
-          // this.$root.store.server_domain + "/recipes/randomRecipes",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
-           "http://localhost:3000/users/favorites"
-        );
-
-        console.log("this is the LOGGGG:  " + response.data);
-        const recipesRes = response.data;
-        this.recipes = [];
-        this.recipes.push(...recipesRes);
-        console.log("this.recipes " + this.recipes);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async lastWatched(){
-      try {
-        const response = await this.axios.get(
-          // this.$root.store.server_domain + "/recipes/randomRecipes",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
-           "http://localhost:3000/users/watched3"
+           //"http://localhost:3000/users/favorites"//remote:comment this
+           "https://cookify.cs.bgu.ac.il/favorites",//local:comment this
         );
 
         console.log("this is the LOGGGG:  " + response.data);

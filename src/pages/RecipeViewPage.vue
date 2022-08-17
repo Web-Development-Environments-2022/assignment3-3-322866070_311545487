@@ -6,6 +6,45 @@
         <img :src="recipe.image" class="center" align="center"/>
       </div>
       <div align="center">
+        <b-row align="center" style="padding-left: 10px;">
+            <b-col>
+              <small>Gluten Free</small>
+            </b-col>
+            <b-col>
+              <small v-if="recipe.vegan">Vegan</small>
+              <small v-else>Vegetarian</small>
+            </b-col>
+          </b-row>
+          <b-row align="center" style="padding-left: 10px;">
+          <b-col>
+            <small v-if="recipe.glutenFree"> &#10004; </small>
+            <small v-else> &#10008; </small>
+          </b-col>
+          <b-col>
+            <small v-if="recipe.vegan"> &#10004; </small>
+            <small v-else-if="recipe.vegetarian"> &#10004; </small>
+            <small v-else> &#10008; </small>
+          </b-col>
+        </b-row>
+        <b-row align="center" style="padding-left: 10px;">
+          <b-col><small>Watched</small></b-col>
+          <b-col>
+            <b-button v-if="isFavorite" variant="success" > Favorite</b-button>  <b-button v-else variant="danger" @click="favorite">Not Favorite</b-button>
+          </b-col>
+        </b-row>
+        <b-row align="center" style="padding-left: 10px;">
+          <b-col>
+            <small v-if="!$root.store.username"> &#10008; </small>
+            <!-- <small v-else-if="wasWatched"> &#10004; </small> -->
+            <small v-else> &#10008; </small>
+          </b-col>
+          <b-col>
+            <small v-if="!$root.store.username"> &#10008; </small>
+            <small v-else-if="isFavorite"> &#10004; </small>
+            <small v-else> &#10008; </small>
+          </b-col>
+        </b-row>
+        <br>        
         <strong><b-row>
           <b-col>Ready in {{ recipe.readyInMinutes }} Minutes</b-col>
           <b-col>Likes: {{ recipe.aggregateLikes }}</b-col>
@@ -21,6 +60,7 @@
               <li v-for="(r, index) in this.recipe.ingredients" :key="index">
                 {{ r.original }}
               </li>
+              
             </ul>
           </div>
           <div class="wrapped" >
@@ -50,20 +90,27 @@
 export default {
   data() {
     return {
-      recipe: null
+      recipe: null,
+      isFavorite: false,
+      recipes:[]
     };
   },
+  methods:{
+    async favorite(){
+      const response=await this.axios.post("https://cookify.cs.bgu.ac.il/users/favorites",{
+        recipeId:this.$route.params.recipeId
+      });
+      this.isFavorite=true;
+    }
+  },
   async created() {
-
     try {
       let response;
       // response = this.$route.params.response;
-
       try {
         response = await this.axios.get(
-          // "https://test-for-3-2.herokuapp.com/recipes/info",
-          // this.$root.store.server_domain + "/recipes/info",
-          "http://localhost:3000/recipes/" + this.$route.params.recipeId ,
+          //"http://localhost:443/recipes/" + this.$route.params.recipeId ,//remote:comment this
+          "https://cookify.cs.bgu.ac.il/recipes/"+this.$route.params.recipeId,//local:comment this
           // {
           //   params: { id: this.$route.params.recipeId }
           // }
@@ -76,7 +123,13 @@ export default {
         this.$router.replace("/NotFound");
         return;
       }
-
+      const response_recipes=await this.axios.get("https://cookify.cs.bgu.ac.il/users/favorites");
+      this.recipes=response_recipes.data;
+      for(let i=0;i<this.recipes.length;i++){
+        if(this.recipes[i].id==this.$route.params.recipeId){
+          this.isFavorite=true;
+        }
+      }
       let {
         analyzedInstructions,
         instructions,
@@ -85,11 +138,11 @@ export default {
         readyInMinutes,
         servings,
         image,
-        title
+        title,
+        glutenFree,
+        vegetarian,
+        vegan
       } = response.data;
-
-      // let _ingredients = parsedIngredients();
-      // console.log("extendedIngredients " + ingredients);
       let _instructions = analyzedInstructions
         .map((fstep) => {
           fstep.steps[0].step = fstep.name + fstep.steps[0].step;
@@ -106,7 +159,10 @@ export default {
         readyInMinutes,
         servings,
         image,
-        title
+        title,
+        glutenFree,
+        vegetarian,
+        vegan
       };
 
       this.recipe = _recipe;
@@ -114,14 +170,6 @@ export default {
       console.log(error);
     }
   },
-  // parsedIngredients() {
-  //   ingredients = [];
-  //   for (let i = 0; i < extendedIngredients.length; i++)
-  //   {
-  //       ingredients.push(extendedIngredients[i].amount + " " + extendedIngredients[i].unit + " of " + extendedIngredients[i].name);
-  //   }
-  //   return ingredients;
-  // }
 };
 </script>
 

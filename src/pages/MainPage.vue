@@ -9,7 +9,7 @@
         <!-- <b-button v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</b-button> -->
         <LoginPage v-if="!$root.store.username"/>
 
-        <RecipePreviewList
+    <!--    <RecipePreviewList
           v-else
           title="Last Viewed Recipes"
           :class="{
@@ -17,7 +17,7 @@
             center: true
           }"
           disabled
-        ></RecipePreviewList>
+        ></RecipePreviewList>-->
       </b-col>
     </b-row>
     <!-- <div

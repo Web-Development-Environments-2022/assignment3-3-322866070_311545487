@@ -48,7 +48,8 @@ export default {
         if(this.vegeterian){vegeterianInt=1;}
         if(this.glutenFree){glutenFreeInt=1;}
         const response = await this.axios.post(
-          "http://localhost:3000/users/personal",
+//          "http://localhost:3000/users/personal",//remote:comment this
+          "https://cookify.cs.bgu.ac.il/users/personal",//local:comment this
           {
             picture:this.picture,
             name:this.name,

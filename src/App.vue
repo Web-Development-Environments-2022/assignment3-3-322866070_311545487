@@ -5,7 +5,7 @@
         Cookify
       </a> -->
    <nav class="navbar navbar-expand-lg navbar-light bg-light" v-if="!$root.store.username">
-      <a class="navbar-brand" href="/main">
+      <a class="navbar-brand" href="#/main">
         <img src="./assets/logo_main_2.png" width="150" height="50" class="d-inline-block align-top" alt="" loading="lazy">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +15,8 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a>
+<!--            <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a> -->   <!--remote:comment this-->
+            <a class="nav-link" href="#/main">Home <span class="sr-only">(current)</span></a>   <!--local:comment this-->
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#/search">Search</a>
@@ -51,7 +52,8 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a>
+<!--            <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a> --> <!--remote:comment this-->
+            <a class="nav-link" href="/#">Home <span class="sr-only">(current)</span></a> <!--local:comment this-->
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#/search">Search</a>
@@ -172,7 +174,8 @@ export default {
         if(this.vegeterian){vegeterianInt=1;}
         if(this.glutenFree){glutenFreeInt=1;}
         const response = await this.axios.post(
-          "http://localhost:3000/users/personal",
+//          "http://localhost:3000/users/personal", //remote:comment this
+          "https://cookify.cs.bgu.ac.il/users/personal", //local:comment this
           {
             picture:this.picture,
             name:this.name,

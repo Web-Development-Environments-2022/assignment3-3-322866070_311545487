@@ -13,6 +13,7 @@
           <b-form-input
             id="query"
             type="text"
+            style="width: 500px;"
             v-model="$v.form.query.$model"
             :state="validateState('query')"
           ></b-form-input>
@@ -26,6 +27,7 @@
         >
           <b-form-select
             id="amount"
+            style="width: 500px;"
             v-model.number="$v.form.amount.$model"
             :state="validateState('amount')"
           >
@@ -46,6 +48,7 @@
         >
           <b-form-select
             id="cuisine"
+            style="width: 500px;"
             v-model="$v.form.cuisine.$model"
             :options="cuisines"
             :state="validateState('cuisine')"
@@ -60,6 +63,7 @@
         >
           <b-form-select
             id="diet"
+            style="width: 500px;"
             v-model="$v.form.diet.$model"
             :options="diets"
             :state="validateState('diet')"
@@ -74,6 +78,7 @@
         >
           <b-form-select
             id="intolerances"
+            style="width: 500px;"
             v-model="$v.form.intolerance.$model"
             :options="intolerances"
             :state="validateState('intolerance')"
@@ -88,6 +93,7 @@
         >
           <b-form-select
             id="watched"
+            style="width: 500px;"
             v-model="$v.form.watched.$model"
             :state="validateState('watched')"
           >
@@ -104,6 +110,7 @@
         >
           <b-form-select
             id="favorite"
+            style="width: 500px;"
             v-model="$v.form.favorite.$model"
             :state="validateState('favorite')"
           >
@@ -137,7 +144,7 @@
               label-cols-sm="3"
               label="Sort By:"
               label-for="sortBy"
-              style="max-width: 300px;"
+              style="width: 300px;"
             >
               <b-form-select
                 id="sortBy"
@@ -150,10 +157,15 @@
               </b-form-select>
             </b-form-group>
           <b-col>
-            <b-row v-for="r in recipes" :key="r.id">
+            <!-- <b-row v-for="r in recipes" :key="r.id"> -->
               <!-- {{ r.id }} -->
-              <SearchResultPreview class="recipePreview" :recipe="r" />
-            </b-row>
+            <b-card no-body>
+              <b-tabs pills card >
+                <b-tab v-for="(r, index) in recipes" :key="r.id" :title="(index+1) + '. ' + r.title"><SearchResultPreview :recipe="r"/></b-tab>
+              </b-tabs>
+            </b-card>
+              <!-- <SearchResultPreview class="recipePreview" :recipe="r" /> -->
+            <!-- </b-row> -->
           </b-col>
         </b-container>
         <br>
@@ -261,10 +273,8 @@
       try {
         // let resExist = false;
         const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Register",
-          // this.$root.store.server_domain + "/searchRecipes",
-          "http://localhost:3000/recipes/searchRecipes",
-
+          //"http://localhost:3000/recipes/searchRecipes",//remote:comment this
+          "https://cookify.cs.bgu.ac.il/recipes/searchRecipes",//local:comment this
           {
             query: this.form.query,
             cuisine: this.form.cuisine,
@@ -342,8 +352,8 @@
 
 <style lang="scss" scoped>
 // .container {
-  // max-width: max-content;
-  // max-width: 500px;
+//   max-width: max-content;
+  // width: 500px;
 // }
 
 // .search-results{

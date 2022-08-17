@@ -1,7 +1,6 @@
 <template>
-  <div align="center">
-    <!-- <ol>
-
+  <div>
+    <ul>
       <li v-for="(recipe,index) in this.recipes" :key="index">
         <h1>{{recipe.name}}</h1>
         <h2>{{recipe.title}}</h2>
@@ -20,13 +19,7 @@
         <br>
         <h3>Number Of Servings: {{recipe.number_of_servings}}</h3>
       </li>
-    </ol>
-    <button @click="updatePhotos">Create</button> -->
-
-    <div v-if="this.recipes.length > 0">
-      <RecipePreviewList title="My Recipes"/>
-    </div>
-    <div v-else><h3>You don't have personal recipes yet.</h3></div>
+    </ul>
     <b-button v-b-modal.modal-create-recipe>Create Recipe</b-button>
     <b-modal align="center" id="modal-create-recipe" size="lg" title="Create Recipe" hide-footer>
       <b-form-group label="Recipe Name:" label-for="name">
@@ -65,39 +58,26 @@
       <b-row><b-col align="center"><b-button @click="create">Create</b-button></b-col></b-row>
       
     </b-modal>
+<!--    <button @click="updatePhotos">Create</button>-->
   </div>
 </template>
 
 <script>
 export default {
-  name: "About",
+  name: "MyRecipes",
   data(){
-    return{
-      recipes:[],
-      createNewClicked: false
-    }
+    return{recipes:[]}
   },
-  async created(){
-    const response=await this.axios.get("http://localhost:3000/users/personal");
-    this.recipes=response.data;
-    updatePhotos();
-    setTimeout(updatePhotos,5000);
-  },
-  updatePhotos(){
-    alert(this.document);
-    for(recipe in this.recipes){
-      alert(document.getElementById('hello').outerHTML);
-
-    }
-  },
-      async create(event){
+  methods:{
+    async create(){
       if(!(!this.name || !this.picture || !this.time || !this.title || !this.ingridients || !this.instructions || !this.num) && (this.name.length>0 && this.picture.length>0 && this.time.length>0 && this.title.length>0 && this.ingridients.length>0 && this.instructions.length>0 && this.num.length>0)){
         let vegeterianInt=0;
         let glutenFreeInt=0;
         if(this.vegeterian){vegeterianInt=1;}
         if(this.glutenFree){glutenFreeInt=1;}
         const response = await this.axios.post(
-          "http://localhost:3000/users/personal",
+  //          "http://localhost:3000/users/personal",//remote:comment this
+          "https://cookify.cs.bgu.ac.il/users/personal",//local:comment this
           {
             picture:this.picture,
             name:this.name,
@@ -110,6 +90,8 @@ export default {
             glutenFree:glutenFreeInt
           }
         );
+        const updated=await this.axios.get("https://cookify.cs.bgu.ac.il/users/personal");
+        this.recipes=updated.data;
         if(response.status==200){alert("Recipe Created Successfully")}
         else{alert("Recipe Already Exists");}
       }
@@ -117,13 +99,23 @@ export default {
         alert("Please Fill All the Fields");
       }
     }
+  },
+  async created(){
+    const response=await this.axios.get("https://cookify.cs.bgu.ac.il/users/personal");
+    this.recipes=response.data;
+    updatePhotos();
+    setTimeout(updatePhotos,5000);
+  },
+  updatePhotos(){
+    for(recipe in this.recipes){
+      alert(document.getElementById('hello').outerHTML);
+
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
 .container {
   max-width: 400px;
-}
-.input-form{
-  max-width: 600px;
 }
 </style>

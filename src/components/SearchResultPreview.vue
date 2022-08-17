@@ -94,7 +94,6 @@ export default {
       type: Object,
       required: true
     },
-
     id: {
       type: Number,
       required: true
@@ -135,7 +134,6 @@ export default {
   height: 200px;
   position: relative;
 }
-
 .recipe-preview .recipe-body .recipe-image {
   margin-left: auto;
   margin-right: auto;
@@ -148,13 +146,11 @@ export default {
   -moz-background-size: cover;
   background-size: cover;
 }
-
 .recipe-preview .recipe-footer {
   width: 100%;
   height: 50%;
   overflow: hidden;
 }
-
 .recipe-preview .recipe-footer .recipe-title {
   padding: 10px 10px;
   width: 100%;
@@ -165,7 +161,6 @@ export default {
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
-
 .recipe-preview .recipe-footer ul.recipe-overview {
   padding: 5px 10px;
   width: 100%;
@@ -184,7 +179,6 @@ export default {
   table-layout: fixed;
   margin-bottom: 0px;
 }
-
 .recipe-preview .recipe-footer ul.recipe-overview li {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;

@@ -57,7 +57,7 @@
             </b-col>
             <b-col>
               <small v-if="!$root.store.username"> &#10008; </small>
-              <!-- <small v-else-if="isFavorite"> &#10004; </small> -->
+              <small v-else-if="isFavorite"> &#10004; </small>
               <small v-else> &#10008; </small>
             </b-col>
           </b-row>
@@ -81,15 +81,26 @@ export default {
   },
   data() {
     return {
-      image_load: false
+      image_load: false,
+      isFavorite:false,
+      recipes:[]
     };
+  },
+  async created(){
+    const response_recipes=await this.axios.get("https://cookify.cs.bgu.ac.il/users/favorites");
+    this.recipes=response_recipes.data;
+    for(let i=0;i<this.recipes.length;i++){
+      if(this.recipes[i].id==this.recipe.id){
+        alert(this.recipes[i].id);
+        this.isFavorite=true;
+      }
+    }
   },
   props: {
     recipe: {
       type: Object,
       required: true
     },
-
     id: {
       type: Number,
       required: true
@@ -130,7 +141,6 @@ export default {
   height: 200px;
   position: relative;
 }
-
 .recipe-preview .recipe-body .recipe-image {
   margin-left: auto;
   margin-right: auto;
@@ -143,13 +153,11 @@ export default {
   -moz-background-size: cover;
   background-size: cover;
 }
-
 .recipe-preview .recipe-footer {
   width: 100%;
   height: 50%;
   overflow: hidden;
 }
-
 .recipe-preview .recipe-footer .recipe-title {
   padding: 10px 10px;
   width: 100%;
@@ -160,7 +168,6 @@ export default {
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
-
 .recipe-preview .recipe-footer ul.recipe-overview {
   padding: 5px 10px;
   width: 100%;
@@ -179,7 +186,6 @@ export default {
   table-layout: fixed;
   margin-bottom: 0px;
 }
-
 .recipe-preview .recipe-footer ul.recipe-overview li {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;

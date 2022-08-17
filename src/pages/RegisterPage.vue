@@ -196,7 +196,6 @@ import {
   alphaNum,
   email
 } from "vuelidate/lib/validators";
-
 export default {
   name: "Register",
   data() {
@@ -265,7 +264,8 @@ export default {
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Register",
           // this.$root.store.server_domain + "/Register",
-          "http://localhost:3000/Register",
+          //"http://localhost:3000/Register",//remote:comment this
+          "https://cookify.cs.bgu.ac.il/Register",//local:comment this
           {
             username: this.form.username,
             firstname: this.form.firstName,

@@ -16,7 +16,7 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
 <!--            <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a> -->   <!--remote:comment this-->
-            <a class="nav-link" href="#/main">Home <span class="sr-only">(current)</span></a>   <!--local:comment this-->
+            <a class="nav-link" href="/#/">Home <span class="sr-only">(current)</span></a>   <!--local:comment this-->
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#/search">Search</a>

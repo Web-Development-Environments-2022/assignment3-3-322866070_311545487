@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul>
+    <ol>
       <li v-for="(recipe,index) in this.recipes" :key="index">
         <h1>{{recipe.name}}</h1>
         <h2>{{recipe.title}}</h2>
@@ -68,15 +68,27 @@ export default {
   data(){
     return{recipes:[]}
   },
-  methods:{
-    async create(){
+  async created(){
+//    const response=await this.axios.get("http://localhost:3000/users/personal");  //remote:comment this
+    const response=await this.axios.get("https://cookify.cs.bgu.ac.il/users/personal");//local:comment this
+    this.recipes=response.data;
+    updatePhotos();
+    setTimeout(updatePhotos,5000);
+  },
+  updatePhotos(){
+    alert(this.document);
+    for(recipe in this.recipes){
+      alert(document.getElementById('hello').outerHTML);
+    }
+  },
+      async create(event){
       if(!(!this.name || !this.picture || !this.time || !this.title || !this.ingridients || !this.instructions || !this.num) && (this.name.length>0 && this.picture.length>0 && this.time.length>0 && this.title.length>0 && this.ingridients.length>0 && this.instructions.length>0 && this.num.length>0)){
         let vegeterianInt=0;
         let glutenFreeInt=0;
         if(this.vegeterian){vegeterianInt=1;}
         if(this.glutenFree){glutenFreeInt=1;}
         const response = await this.axios.post(
-  //          "http://localhost:3000/users/personal",//remote:comment this
+//          "http://localhost:3000/users/personal",//remote:comment this
           "https://cookify.cs.bgu.ac.il/users/personal",//local:comment this
           {
             picture:this.picture,
